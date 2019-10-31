@@ -1,0 +1,7 @@
+# FileOpreation
+项目中使用的client使用了springboot,独立启动运行
+server使用原生servlet和jdbc运行在tomcat上，需要配置服务器
+security是提供rsa签名认证的公具模块，共客户端和服务端的加密和解密使用
+
+数据库为file
+其中两张表user和info分别为用户的登录表和存储文件的信息表，表结构已经放在配置文件夹中
