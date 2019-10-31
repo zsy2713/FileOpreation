@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<script src="/js/jquery-3.3.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#button1").click(function () {
+            $.post("/login",$("#form").serialize(),function (info) {
+                if (info.flag){
+                    location.href="/fileOp.html";
+                } else{
+                    alert(info.msg);
+                }
+            })
+        });
+        $("#button2").click(function () {
+            location.href="/register.html"
+        })
+    })
+</script>
+<body>
+    <form id="form">
+        <input type="username" name="username" placeholder="username">
+        <br/>
+        <input type="password" name="password" placeholder="password">
+        <br/>
+        <button type="button" id="button1">登录</button>
+        <button type="button" id="button2">注册</button>
+    </form>
+</body>
+</html>

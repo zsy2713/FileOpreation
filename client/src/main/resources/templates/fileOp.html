@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FileOp</title>
+</head>
+<script src="/js/jquery-3.3.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#button").click(function () {
+            $("#button").hide()
+            $.ajax({
+                url:"/down",
+                dataType:"json",
+                data:{},
+                success:function (list) {
+                    if (list){
+                        for(var i=0;i<list.length;i++){
+                            var tr = $("<tr></tr>")
+                            var td1 = $("<td></td>").text(list[i].size)
+                            var td2 = $("<td></td>").text(list[i].type)
+                            var td3 = $("<td></td>").text(list[i].filename)
+                            var td4 = $("<td></td>").text(list[i].date)
+                            var td5 = $("<td></td>").text(list[i].mkdir)
+                            var a = $("<a href='/down/"+list[i].uuid+"'>下载</a>")
+                            var td = $("<td></td>").html(a)
+                            tr.append(td1,td2,td3,td4,td5,td);
+                            $("#tbody").append(tr);
+                        }
+                    }
+                }
+            });
+        })
+    })
+</script>
+<body>
+<h2>文件下载</h2>
+<p>欢迎用户 <span th:text="${user}">用户</span></p>
+<a href="/exit">退出</a>
+<br/>
+<form action="/fileOp" method="post" enctype="multipart/form-data">
+    文件名:<input type="file" name="file">
+    <br/>
+    <button type="submit">上传</button>
+</form>
+<br/>
+<button type="button" id="button">文件列表</button>
+<table>
+    <thead>
+    <tr>
+        <td>size</td>
+        <td>type</td>
+        <td>filename</td>
+        <td>date</td>
+        <td>mkdir</td>
+        <td>op</td>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+
+    </tbody>
+</table>
+</body>
+</html>
